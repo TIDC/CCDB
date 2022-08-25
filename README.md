@@ -1,3 +1,3 @@
 # CCDB
 
-Full name: ChongChongDataBase
+## Full name: CongCong Database Management System
