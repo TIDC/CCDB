@@ -1,2 +1,3 @@
-# rocksdb-server
-rocksdb-server
+# CCDB
+
+Full name: ChongChongDataBase
