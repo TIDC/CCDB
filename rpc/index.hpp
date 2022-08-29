@@ -1,40 +1,45 @@
 #pragma once
 
-#include <string>
 #include <chrono>
-#include <thread>
 #include <iostream>
+#include <string>
+#include <thread>
 
 #include <zmq.hpp>
 
-int TestZmq() 
-{
-    using namespace std::chrono_literals;
+// class Rpc {
+// public:
+//   Rpc() {
 
-    // initialize the zmq context with a single IO thread
-    zmq::context_t context{1};
+//     // initialize the zmq context with a single IO thread
+//     zmq::context_t context{1};
+//     // construct a REP (reply) socket and bind to interface
+//     socket_ = zmq::socket_t{context, zmq::socket_type::rep};
+//   }
 
-    // construct a REP (reply) socket and bind to interface
-    zmq::socket_t socket{context, zmq::socket_type::rep};
-    socket.bind("tcp://*:5555");
+//   void listen() { socket_.bind("tcp://*:5555"); }
 
-    // prepare some static data for responses
-    const std::string data{"World"};
+// private:
+//   zmq::socket_t socket_;
+// }
 
-    for (;;) 
-    {
-        zmq::message_t request;
+int TestZmq() {
+  zmq::context_t context{1};
+  // construct a REP (reply) socket and bind to interface
+  zmq::socket_t socket{context, zmq::socket_type::rep};
+  // prepare some static data for responses
+  const std::string data{"World"};
 
-        // receive a request from client
-        socket.recv(request, zmq::recv_flags::none);
-        std::cout << "Received " << request.to_string() << std::endl;
+  for (;;) {
+    zmq::message_t request;
 
-        // simulate work
-        std::this_thread::sleep_for(1s);
+    // receive a request from client
+    socket.recv(request, zmq::recv_flags::none);
+    std::cout << "Received " << request.to_string() << std::endl;
+    socket.send(zmq::buffer(data), zmq::send_flags::none);
+    // const std::string data2{"World2"};
+    // socket.send(zmq::buffer(data2), zmq::send_flags::none);
+  }
 
-        // send the reply to the client
-        socket.send(zmq::buffer(data), zmq::send_flags::none);
-    }
-
-    return 0;
+  return 0;
 }

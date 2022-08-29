@@ -1,0 +1,4 @@
+rpc:
+  port: 5555
+  transport: tcp
+  host: \*

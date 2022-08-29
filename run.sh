@@ -36,4 +36,4 @@ cpu=$?
 
 make -j ${cpu}
 error_check
-./rocksdb_server
+./rocksdb_server test 1

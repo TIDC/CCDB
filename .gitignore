@@ -13,3 +13,5 @@ _deps
 node_modules
 
 lib
+
+build

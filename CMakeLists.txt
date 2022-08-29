@@ -21,4 +21,5 @@ target_link_libraries(
     pthread
     zmq
     rocksdb
+    yaml-cpp
 )
